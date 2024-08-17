@@ -1,0 +1,8 @@
+[submodule "translation/vendor/rbenv"]
+	path = translation/vendor/rbenv
+	url = git@github.com:gemmaro/rbenv.git
+	branch = ja
+[submodule "translation/vendor/ruby-build"]
+	path = translation/vendor/ruby-build
+	url = git@github.com:gemmaro/ruby-build.git
+	branch = ja

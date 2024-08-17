@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mislav Marohnić">
+<title>ruby-build(1)</title>
+<link rel="stylesheet" href="./manpage.css">
+</head>
+<body class="manpage">
+<div id="header">
+<h1>ruby-build(1) Manual Page</h1>
+<h2 id="名称">名称</h2>
+<div class="sectionbody">
+<p>ruby-build - Rubyのバージョンをダウンロード、コンパイル、インストール</p>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="処方">処方</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ruby-build [-dvpk] <em>＜定義＞</em> <em>＜プレフィックス＞</em> [-- <em>＜構成引数＞</em>&#8230;&#8203;]<br>
+ruby-build {--list|--definitions}<br>
+ruby-build --version</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="説明">説明</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ruby-buildは、 <em>定義</em> 引数の名前のバージョンのRubyを、 <em>プレフィックス</em> で指定された場所へ、ダウンロード、コンパイル、インストールします。</p>
+</div>
+<div class="paragraph">
+<p><em>定義</em> 引数は「ruby-」始まりにもできます。 この場合、それに続くバージョン番号に合致するCRubyに解決されます。</p>
+</div>
+<div class="paragraph">
+<p><em>定義</em> 引数はディスク上のファイルへのパスにできます。 この場合、bashスクリプトとしてruby-buildにソースが読み込まれます。</p>
+</div>
+<div class="paragraph">
+<p>また、追加でRubyの <em>構成引数</em> を「--」の後に列挙できます。 このようにすると、 <code>./configure</code> の呼出しへ転送されます。</p>
+</div>
+<div class="paragraph">
+<p>既定では、全てのコンパイル出力は <code>$TMPDIR/ruby-build.*.log</code> にあるログファイルにリダイレクトされます。 冗長モードを有効にするとログファイルへの書き込みはスキップし、全て標準ストリームに印字します。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="オプション">オプション</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>-l, --list</strong></dt>
+<dd>
+<p>Rubyの最新の安定リリースが、各行に一覧で表示されます</p>
+</dd>
+<dt class="hdlist1"><strong>--definitions</strong></dt>
+<dd>
+<p>全てのローカルの定義を一覧にします。 期限切れのものも含まれます。</p>
+</dd>
+<dt class="hdlist1"><strong>--version</strong></dt>
+<dd>
+<p>ruby-buildのバージョンを表示します</p>
+</dd>
+<dt class="hdlist1"><strong>-d, --dir</strong></dt>
+<dd>
+<p><em>プレフィックス</em> に直接インストールするのではなく、 <em>プレフィックス/定義</em> にRubyをインストールするようにします。</p>
+</dd>
+<dt class="hdlist1"><strong>-v, --verbose</strong></dt>
+<dd>
+<p>冗長モードです。 ビルド時の出力を標準入力と標準エラーに転送します</p>
+</dd>
+<dt class="hdlist1"><strong>-p, --patch</strong></dt>
+<dd>
+<p>ビルド前に標準入力からパッチを適用します</p>
+</dd>
+<dt class="hdlist1"><strong>-k, --keep</strong></dt>
+<dd>
+<p>インストール後にソースツリーを削除しません</p>
+</dd>
+<dt class="hdlist1"><strong>-4, --ipv4</strong></dt>
+<dd>
+<p>IPv4アドレスのみに名前解決します</p>
+</dd>
+<dt class="hdlist1"><strong>-6, --ipv6</strong></dt>
+<dd>
+<p>IPv6アドレスのみに名前解決します</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="例">例</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rubyのバージョンをインストールします。 ただし構成オプションを調整します。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ruby-build 3.2.2 /path/to/destination -- --disable-install-doc --with-openssl-dir=/opt/openssl</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rubyのバージョンを <code>~/.rubies/ruby-3.2.2</code> にインストールします。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ruby-build --dir ruby-3.2.2 ~/.rubies</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rubyのバージョンを <code>~/.rbenv/versions/3.3.5</code> にインストールします。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ruby-build --dir 3.3.5 ~/.rbenv/versions</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>rbenvプラグインとしての使い方は次の通りです。 前の例と同じことが達成されます。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ rbenv install 3.3.5</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="環境変数">環境変数</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>TMPDIR</strong></dt>
+<dd>
+<p>ディスク上の一時ファイルに書き込む場所</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_BUILD_PATH</strong>（既定では <em>TMPDIR</em> の時間記録付きの副ディレクトリです）</dt>
+<dd>
+<p>ソースファイルをダウンロードしてコンパイルする、ビルド場所です</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_CACHE_PATH</strong>（rbenvプラグインとして呼ばれたとき、既定では「~/.rbenv/cache」です）</dt>
+<dd>
+<p>ダウンロードしたパッケージファイルをキャッシュする場所です</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_HTTP_CLIENT</strong>（既定ではPATHから見つかった最初のツールです）</dt>
+<dd>
+<p>ダウンロードに使うもので、「aria2c」「curl」「wget」のいずれかです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_ARIA2_OPTS</strong></dt>
+<dd>
+<p>ダウンロード時にaria2cに渡す追加のオプションです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_CURL_OPTS</strong></dt>
+<dd>
+<p>ダウンロード時にcurlに渡す追加のオプションです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_WGET_OPTS</strong></dt>
+<dd>
+<p>ダウンロードでwgetに渡す追加のオプションです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_MIRROR_URL</strong>（既定では、スポンサーのAmazon CloudFrontのミラーです）</dt>
+<dd>
+<p>パッケージをダウンロードする、独自のミラーURLのルートです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_MIRROR_PACKAGE_URL</strong></dt>
+<dd>
+<p>独自の完全なミラーURLです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_SKIP_MIRROR</strong></dt>
+<dd>
+<p>ダウンロードミラーを迂回し、元々のURLから全てのパッケージファイルを取得します</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_ROOT</strong>（既定では、ruby-buildのインストール場所内の「share/ruby-build」です）</dt>
+<dd>
+<p>独自のビルド定義ディレクトリです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_TARBALL_OVERRIDE</strong></dt>
+<dd>
+<p>Rubyのtarballを取得するURLを上塗りします。 「#&lt;checksum&gt;」を後ろに付けることもできます</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_BUILD_DEFINITIONS</strong></dt>
+<dd>
+<p><em>RUBY_BUILD_ROOT</em> に加えて、ビルド定義を探索するパスです</p>
+</dd>
+<dt class="hdlist1"><strong>CC</strong></dt>
+<dd>
+<p>Cコンパイラへのパスです</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_CFLAGS</strong></dt>
+<dd>
+<p>Rubyのコンパイルに使う追加の <code>CFLAGS</code> オプションです</p>
+</dd>
+<dt class="hdlist1"><strong>CONFIGURE_OPTS</strong></dt>
+<dd>
+<p>「./configure」の追加引数です</p>
+</dd>
+<dt class="hdlist1"><strong>MAKE</strong>（既定では「make」です）</dt>
+<dd>
+<p>独自のmakeコマンドです（例えば「gmake」）</p>
+</dd>
+<dt class="hdlist1"><strong>MAKE_OPTS</strong>, <strong>MAKEOPTS</strong></dt>
+<dd>
+<p>「make」への追加の引数です</p>
+</dd>
+<dt class="hdlist1"><strong>MAKE_INSTALL_OPTS</strong></dt>
+<dd>
+<p>「make install」への追加の引数です</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_CONFIGURE_OPTS</strong></dt>
+<dd>
+<p>「./configure」への追加の引数で、Rubyのソースにのみ適用されます</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_MAKE_OPTS</strong></dt>
+<dd>
+<p>makeへの追加の引数で、Rubyのソースにのみ適用されます</p>
+</dd>
+<dt class="hdlist1"><strong>RUBY_MAKE_INSTALL_OPTS</strong></dt>
+<dd>
+<p>「make install」への追加の引数で、Rubyのソースにのみ適用されます</p>
+</dd>
+<dt class="hdlist1"><strong>NO_COLOR</strong>（既定では、端末に接続しているときに彩色できるようにします）</dt>
+<dd>
+<p>出力でANSIの彩色を無効にします</p>
+</dd>
+<dt class="hdlist1"><strong>CLICOLOR_FORCE</strong></dt>
+<dd>
+<p>出力でANSIの彩色を使います。 端末に接続していない場合も該当します</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="補足">補足</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/gemmaro/ruby-build/tree/ja/translation/ja#readme" class="bare">https://github.com/gemmaro/ruby-build/tree/ja/translation/ja#readme</a></p>
+</li>
+<li>
+<p><a href="https://github.com/rbenv/ruby-build/wiki" class="bare">https://github.com/rbenv/ruby-build/wiki</a></p>
+</li>
+<li>
+<p><a href="https://github.com/rbenv/ruby-build/discussions" class="bare">https://github.com/rbenv/ruby-build/discussions</a></p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="日本語訳について">日本語訳について</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>この日本語訳の原文は <a href="https://rbenv.org/man/ruby-build.1:">ruby-build(1) Manual Page</a> です。</p>
+</div>
+<div class="paragraph">
+<p>先行訳として <a href="https://ruby.studio-kingdom.com/rbenv/ruby_build/:">Ruby STUDIO/ruby-build</a> がありますが、本訳の作成にあたって参照していません。</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-10-04 20:58:55 +0900
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require "nokogiri"
+Nokogiri::HTML($stdin).write_xhtml_to($stdout)
