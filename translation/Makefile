@@ -1,11 +1,23 @@
-all: ja/index.html ja/man/manpage.css ja/man/rbenv.1.html ja/man/ruby-build.1.html
+all: ja/index.html \
+	ja/man/manpage.css \
+	ja/man/rbenv.1.html \
+	ja/man/ruby-build.1.html
 .PHONY: all
 
 ja/man/rbenv.1.html: vendor/rbenv/translation/ja/share/man/man1/rbenv.1.adoc
-	asciidoctor -b html5 -a linkcss -a stylesheet=manpage.css -a 'webfonts!' -a idprefix= -o $@ $<
+	asciidoctor \
+		-b html5 \
+		-a linkcss \
+		-a stylesheet=manpage.css \
+		-a 'webfonts!' \
+		-a idprefix= \
+		-o $@ \
+		$<
 
 vendor/rbenv/translation/ja/share/man/man1/rbenv.1.adoc:
-	${MAKE} --directory vendor/rbenv/translation ja/share/man/man1/rbenv.1.adoc
+	${MAKE} \
+		--directory vendor/rbenv/translation \
+		ja/share/man/man1/rbenv.1.adoc
 
 ja/man/ruby-build.1.html: vendor/ruby-build/translation/ja/share/man/man1/ruby-build.1.adoc
 	asciidoctor -b html5 -a linkcss -a stylesheet=manpage.css -a 'webfonts!' -a idprefix= -o $@ $<
