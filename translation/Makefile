@@ -52,3 +52,11 @@ clean:
 		vendor/rbenv/translation/ja/share/man/man1/rbenv.1.adoc \
 		vendor/ruby-build/translation/ja/share/man/man1/ruby-build.1.adoc
 .PHONY: clean
+
+remotes:
+	git remote | grep mainstream \
+		|| git remote add mainstream https://github.com/rbenv/rbenv.github.io
+	git remote --verbose
+	${MAKE} --directory vendor/ruby-build/translation remotes
+	${MAKE} --directory vendor/rbenv/translation remotes
+.PHONY: remotes
